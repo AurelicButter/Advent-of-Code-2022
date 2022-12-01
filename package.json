@@ -1,7 +1,7 @@
 {
-	"name": "aoc-{year}",
+	"name": "aoc-2022",
 	"version": "1.0.0",
-	"description": "Collection of AOC {year} Solutions",
+	"description": "Collection of AOC 2022 Solutions",
 	"main": "./build/runPuzzle.js",
 	"scripts": {
 		"build": "tsc",
@@ -16,7 +16,7 @@
 	},
 	"author": {
 		"name": "Frederick Katsura",
-		"email": "katsurinstudios@protonmail.ch"
+		"email": "fkatsura@katsurin.com"
 	},
 	"license": "MIT",
 	"lint-staged": {
