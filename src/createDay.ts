@@ -6,10 +6,10 @@
 
 import { createWriteStream, mkdirSync } from "fs";
 
-const TSHeader = "import { readFileSync } from \"fs\"; \nconst values = readFileSync(\"./inputs/Day--DAYINPUT.txt\", \"utf8\").split(\"\\n\");";
+const TSHeader =
+	'import { readFileSync } from "fs"; \nconst values = readFileSync("./inputs/Day--DAYINPUT.txt", "utf8").split("\\r\\n");';
 
-const READMETemplate = 
-`# Day --DAYINPUT: <Title>
+const READMETemplate = `# Day --DAYINPUT: <Title>
 Link: [Day --DAYINPUT](https://adventofcode.com/--YEARINPUT/day/--DAYINPUT)
 
 ## Part 1
@@ -18,47 +18,48 @@ Link: [Day --DAYINPUT](https://adventofcode.com/--YEARINPUT/day/--DAYINPUT)
 `;
 
 async function createDay() {
-    const args = process.argv;
+	const args = process.argv;
 
-    let day: number;
+	let day: number;
 
-    if (args[2] === undefined) {
-        day = new Date().getDate();
-    } else {
-        day = Number(args[2]); 
-    }
+	if (args[2] === undefined) {
+		day = new Date().getDate();
+	} else {
+		day = Number(args[2]);
+	}
 
-    if (isNaN(day)) {
-        throw new Error("Day input is not a number.");
-    }
-    if (day > 25) {
-        throw new Error("Day input exceeds AOC time.");
-    }
-    if (day < 1) {
-        throw new Error("Day input is lower than 1.");
-    }
+	if (isNaN(day)) {
+		throw new Error("Day input is not a number.");
+	}
+	if (day > 25) {
+		throw new Error("Day input exceeds AOC time.");
+	}
+	if (day < 1) {
+		throw new Error("Day input is lower than 1.");
+	}
 
-    const dirPath = `./src/day${day}`;
+	const dirPath = `./src/day${day}`;
 
-    mkdirSync(dirPath);
+	mkdirSync(dirPath);
 
-    let writeStream = createWriteStream(`${dirPath}/part1.ts`);
-    writeStream.write(TSHeader.replace("--DAYINPUT", day.toString()));
-    writeStream.end();
+	let writeStream = createWriteStream(`${dirPath}/part1.ts`);
+	writeStream.write(TSHeader.replace("--DAYINPUT", day.toString()));
+	writeStream.end();
 
-    writeStream = createWriteStream(`${dirPath}/part2.ts`);
-    writeStream.write(TSHeader.replace("--DAYINPUT", day.toString()));
-    writeStream.end();
+	writeStream = createWriteStream(`${dirPath}/part2.ts`);
+	writeStream.write(TSHeader.replace("--DAYINPUT", day.toString()));
+	writeStream.end();
 
-    writeStream = createWriteStream(`${dirPath}/README.md`);
-    writeStream.write(
-        READMETemplate
-            .replace(/--DAYINPUT/g, day.toString())
-            .replace("--YEARINPUT", new Date().getFullYear().toString())
-    );
-    writeStream.end();
+	writeStream = createWriteStream(`${dirPath}/README.md`);
+	writeStream.write(
+		READMETemplate.replace(/--DAYINPUT/g, day.toString()).replace(
+			"--YEARINPUT",
+			new Date().getFullYear().toString()
+		)
+	);
+	writeStream.end();
 
-    console.log("Day created.");
+	console.log("Day created.");
 }
 
 createDay();
